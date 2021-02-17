@@ -9,6 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "pixi.js": "^5.3.7"
+    "express": "^4.17.1",
+    "gulp": "^4.0.2",
+    "gulp-hot-reload": "^1.2.4",
+    "pixi.js": "^5.3.7",
+    "serve-favicon": "^2.5.0"
   }
 }

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>pixi</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+	</style>
+	<script src="pixi/pixi.js"></script>
+</head>
+<body></body>
+	<script type="text/javascript">
+
+	    let type = "WebGL"
+	    if (!PIXI.utils.isWebGLSupported()) {
+	        type = "canvas"
+	    }
+
+	    PIXI.utils.sayHello(type)
+
+	    //Создание отрисовщика
+	    // Pixi метод autoDetectRenderer определяет, что использовать Canvas Drawing API или WebGL для визуализации графики.
+		// let renderer = PIXI.autoDetectRenderer(256, 256); // DEFAULT SETTINGS
+		let renderer = PIXI.autoDetectRenderer(
+		    256, 256,
+		    {antialiasing: false, transparent: false, resolution: 1}
+		);
+
+		// изменить размер холста
+		renderer.resize(512, 512);
+
+		// задать холсту пунктирную границу:
+		// renderer.view.style.border = "1px dashed black";
+
+		// холст был размером во все окно
+		renderer.view.style.position = "absolute";
+		renderer.view.style.width = 100 + "%";
+		renderer.view.style.height = 100 + "%";
+		renderer.view.style.display = "block";
+		renderer.view.style.outline = "1px dashed #000";
+		renderer.view.style.outlineOffset = "-10px";
+
+		// изменить цвет фона холста
+		renderer.backgroundColor = 0xFFFFFF;
+
+		//Добавляем отрисовщик в HTML документ
+		document.body.appendChild(renderer.view);
+		//Создаем объект-контейнер, называемый сцена
+		let stage = new PIXI.Container();
+		//Говорим отрисовщику отобразить сцену
+		renderer.render(stage);
+	</script>
+</html>

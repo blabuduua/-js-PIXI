@@ -18,3 +18,11 @@ container.addChild( smile );
 
 container.x = app.screen.width / 2;
 container.y = app.screen.height / 2;
+
+container.pivot.x = container.width / 2;
+container.pivot.y = container.height / 2;
+
+
+app.ticker.add( (delta) => {
+	container.rotation -= 0.01 * delta;
+})

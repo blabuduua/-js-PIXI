@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>pixi</title>
+	<script src="pixi/pixi.js"></script>
+</head>
+<body>
+	test
+</body>
+	<script type="text/javascript">
+		
+	    let type = "WebGL"
+	    if (!PIXI.utils.isWebGLSupported()) {
+	        type = "canvas"
+	    }
+
+	    PIXI.utils.sayHello(type)
+
+	    //Создание отрисовщика
+		let renderer = PIXI.autoDetectRenderer(256, 256);
+		//Добавляем отрисовщик в HTML документ
+		document.body.appendChild(renderer.view);
+		//Создаем объект-контейнер, называемый сцена
+		let stage = new PIXI.Container();
+		//Говорим отрисовщику отобразить сцену
+		renderer.render(stage);
+
+	</script>
+</html>

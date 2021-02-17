@@ -6,23 +6,57 @@ const app = new PIXI.Application({
 
 document.body.appendChild( app.view );
 
-const container = new PIXI.Container();
-app.stage.addChild( container );
+PIXI.Loader.shared
+	.add("static/images/matrix.png")
+	.load( setup )
 
-const texture = PIXI.Texture.from('static/images/matrix.png');
+function setup() {
+	let matrix = new PIXI.Sprite( PIXI.Loader.shared.resources['static/images/matrix.png'].texture );
 
-const smile = new PIXI.Sprite( texture );
-smile.anchor.set(0.5);
+	matrix.x = 100;
+	matrix.y = 100;
 
-container.addChild( smile );
+	matrix.anchor.set(0.09);
 
-container.x = app.screen.width / 2;
-container.y = app.screen.height / 2;
+	app.stage.addChild( matrix );
 
-container.pivot.x = container.width / 2;
-container.pivot.y = container.height / 2;
+	let Sprite = PIXI.Sprite;
+	let second_matrix = new Sprite( PIXI.Loader.shared.resources['static/images/matrix.png'].texture );
+
+	second_matrix.x = 50;
+	second_matrix.y = 50;
+
+	second_matrix.scale.set(1.5);
+	second_matrix.anchor.set(0);
+
+	app.ticker.add( (delta) => {
+		second_matrix.rotation -= 0.01 * delta;
+	})
+
+	app.stage.addChild( second_matrix );
+}
 
 
-app.ticker.add( (delta) => {
-	container.rotation -= 0.01 * delta;
-})
+
+
+
+// const container = new PIXI.Container();
+// app.stage.addChild( container );
+
+// const texture = PIXI.Texture.from('static/images/matrix.png');
+
+// const smile = new PIXI.Sprite( texture );
+// smile.anchor.set(0.5);
+
+// container.addChild( smile );
+
+// container.x = app.screen.width / 2;
+// container.y = app.screen.height / 2;
+
+// container.pivot.x = container.width / 2;
+// container.pivot.y = container.height / 2;
+
+
+// app.ticker.add( (delta) => {
+// 	container.rotation -= 0.01 * delta;
+// })

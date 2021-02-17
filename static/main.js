@@ -7,16 +7,15 @@ const app = new PIXI.Application({
 document.body.appendChild( app.view );
 
 PIXI.Loader.shared
-	.add("static/images/sprite.png")
+	.add("static/images/atlas.json")
 	.load( setup )
 
 function setup() {
-	let texture = PIXI.utils.TextureCache["static/images/sprite.png"];
-	let rectangle = new PIXI.Rectangle(0, 0, 360, 750);
+	let id = PIXI.Loader.shared.resources["static/images/atlas.json"].textures;
 
-	texture.frame = rectangle;
+	console.log(id)
 
-	let target = new PIXI.Sprite( texture );
+	let sprite = new PIXI.Sprite( id["uia_logo_w.png"] );
 
-	app.stage.addChild( target );
+	app.stage.addChild( sprite );
 }

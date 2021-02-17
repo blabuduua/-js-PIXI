@@ -1,27 +1,22 @@
 const app = new PIXI.Application({
-	width: 640,
-	height: 640,
+	width: 720,
+	height: 750,
 	backgroundColor: 0x1099bb,
 });
 
 document.body.appendChild( app.view );
 
 PIXI.Loader.shared
-	.add("static/images/matrix.png")
+	.add("static/images/sprite.png")
 	.load( setup )
 
 function setup() {
-	let matrix = new PIXI.Sprite( PIXI.Loader.shared.resources['static/images/matrix.png'].texture );
+	let texture = PIXI.utils.TextureCache["static/images/sprite.png"];
+	let rectangle = new PIXI.Rectangle(0, 0, 360, 750);
 
-	matrix.x = 300;
-	matrix.y = 300;
+	texture.frame = rectangle;
 
-	matrix.scale.set(0.5);
-	matrix.anchor.set(0.5); // ЯКОРЬ, ТОЧКА ПРИВЯЗКИ ОБЬЕКТА (1 - ЛЕВЫЙ ВЕРХНИЙ, 0.5 - ЦЕНТР) 
+	let target = new PIXI.Sprite( texture );
 
-	app.ticker.add( (delta) => {
-		matrix.rotation -= 0.01 * delta;
-	})
-
-	app.stage.addChild( matrix );
+	app.stage.addChild( target );
 }

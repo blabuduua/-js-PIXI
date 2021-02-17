@@ -1,0 +1,111 @@
+{"frames": {
+
+"favpng_seraph-the-matrix-collin-chou-the-oracle-morpheus.png":
+{
+	"frame": {"x":1,"y":1,"w":486,"h":553},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":6,"w":486,"h":553},
+	"sourceSize": {"w":500,"h":559}
+},
+"instagram-icon-png-white-2.jpg":
+{
+	"frame": {"x":556,"y":1,"w":460,"h":460},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":26,"y":26,"w":460,"h":460},
+	"sourceSize": {"w":512,"h":512}
+},
+"instagram-icon-png-white-15.jpg":
+{
+	"frame": {"x":1018,"y":1,"w":256,"h":256},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
+	"sourceSize": {"w":256,"h":256}
+},
+"instagram-icon-png-white-29.jpg":
+{
+	"frame": {"x":1018,"y":389,"w":69,"h":69},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":23,"y":23,"w":69,"h":69},
+	"sourceSize": {"w":834,"h":255}
+},
+"tik.png":
+{
+	"frame": {"x":1227,"y":259,"w":32,"h":32},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+	"sourceSize": {"w":32,"h":32}
+},
+"tik2.png":
+{
+	"frame": {"x":1227,"y":293,"w":32,"h":32},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+	"sourceSize": {"w":32,"h":32}
+},
+"tiktok (1).png":
+{
+	"frame": {"x":556,"y":463,"w":22,"h":24},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":0,"w":22,"h":24},
+	"sourceSize": {"w":24,"h":24}
+},
+"tiktok.png":
+{
+	"frame": {"x":580,"y":463,"w":14,"h":16},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":14,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"tiktok1.png":
+{
+	"frame": {"x":1018,"y":259,"w":116,"h":128},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":6,"y":0,"w":116,"h":128},
+	"sourceSize": {"w":128,"h":128}
+},
+"uia.png":
+{
+	"frame": {"x":1227,"y":327,"w":32,"h":32},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+	"sourceSize": {"w":32,"h":32}
+},
+"uia_logo.png":
+{
+	"frame": {"x":1089,"y":389,"w":67,"h":67},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":67,"h":67},
+	"sourceSize": {"w":67,"h":67}
+},
+"uia_logo_w.png":
+{
+	"frame": {"x":1158,"y":259,"w":67,"h":67},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":58,"y":0,"w":67,"h":67},
+	"sourceSize": {"w":183,"h":67}
+}},
+"animations": {
+	"instagram-icon-png-white": ["instagram-icon-png-white-2.jpg","instagram-icon-png-white-15.jpg","instagram-icon-png-white-29.jpg"]
+},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "own_sprite.png",
+	"format": "RGBA8888",
+	"size": {"w":1275,"h":488},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:cb8cc1d526c055fa31e09f16b7044acd:92d4f3fb572dff0bb8155ec6f2dc2da3:fb4189c7d405c854d575c0245eadcfe2$"
+}
+}

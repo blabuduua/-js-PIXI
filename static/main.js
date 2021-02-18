@@ -98,7 +98,7 @@ function setup() {
     app.stage.addChild(blob);
   }
 
-  gameLoop();
+  app.ticker.add(delta => gameLoop(delta));
 }
 
 //The `randomInt` helper function
@@ -107,14 +107,5 @@ function randomInt(min, max) {
 }
 
 function gameLoop(delta){
-  explorer.x += 1;
+  explorer.x += 1 + delta;
 }
-
-function gameLoop() {
-  //Call this `gameLoop` function on the next screen refresh
-  //(which happens 60 times per second)
-  requestAnimationFrame(gameLoop);
-
-  explorer.x += 1;
-}
-

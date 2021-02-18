@@ -1,39 +1,120 @@
 let Application = PIXI.Application,
+    Container = PIXI.Container,
     loader = PIXI.Loader.shared,
     resources = PIXI.Loader.shared.resources,
-    Sprite = PIXI.Sprite;
+    TextureCache = PIXI.utils.TextureCache,
+    Sprite = PIXI.Sprite,
+    Rectangle = PIXI.Rectangle;
 
-let app = new Application({
-	width: 720,
-	height: 750,
-	backgroundColor: 0x1099bb,
-});
+//Create a Pixi Application
+let app = new Application({ 
+    width: 512, 
+    height: 512,                       
+    antialias: true, 
+    transparent: false, 
+    resolution: 1.7
+  }
+);
 
-document.body.appendChild( app.view );
+//Add the canvas that Pixi automatically created for you to the HTML document
+document.body.appendChild(app.view);
 
+//load a JSON file and run the `setup` function when it's done
 loader
-    .add("atlas", "static/images/atlas.json")
-    .use((resource, next) =>
-    {
-        // Be sure to call next() when you have completed your middleware work.
-        next();
-    })
-    .load((loader, resources) => {
-		let id = resources.atlas.textures;
+  .add("grif", "static/images/grif.json")
+  .load(setup);
 
-		let sprite = new Sprite( id["uia_logo_w.png"] );
+//Define variables that might be used in more 
+//than one function
+let dungeon, explorer, treasure, door, id;
 
-		app.stage.addChild( sprite );
+function setup() {
 
-		console.log('All files loaded');
-    });
+  //There are 3 ways to make sprites from textures atlas frames
 
-// Throughout the process multiple signals can be dispatched.
-loader.onStart.add(() => {console.log("onStart");}); // Called when a resource starts loading.
-loader.onError.add(() => {console.log("onError");}); // Called when a resource fails to load.
-loader.onLoad.add(() => {console.log("onLoad");}); // Called when a resource successfully loads.
-loader.onProgress.add((loader, resource) => {
-	console.log("onProgress: " + resource.url); 
-	console.log("progress: " + loader.progress + "%"); 
-}); // Called when a resource finishes loading (success or fail).
-loader.onComplete.add(() => {console.log("onComplete");}); // Called when all resources have finished loading.
+  //1. Access the `TextureCache` directly
+  let dungeonTexture = TextureCache["dungeon.png"];
+  dungeon = new Sprite(dungeonTexture);
+  app.stage.addChild(dungeon);
+
+  //2. Access the texture using throuhg the loader's `resources`:
+  explorer = new Sprite(
+    resources.grif.textures["explorer.png"]
+  );
+  explorer.x = 68;
+  explorer.scale.set(0.1, 0.1);
+
+  //Center the explorer vertically
+  explorer.y = app.stage.height / 2 - explorer.height / 2;
+  app.stage.addChild(explorer);
+
+  //3. Create an optional alias called `id` for all the texture atlas 
+  //frame id textures.
+  id = resources.grif.textures; 
+  
+  //Make the treasure box using the alias
+  treasure = new Sprite(id["treasure.png"]);
+  treasure.scale.set(0.2, 0.2);
+  app.stage.addChild(treasure);
+
+  //Position the treasure next to the right edge of the canvas
+  treasure.x = app.stage.width - treasure.width - 48;
+  treasure.y = app.stage.height / 2 - treasure.height / 2;
+  app.stage.addChild(treasure);
+
+  //Make the exit door
+  door = new Sprite(id["door.png"]); 
+  door.position.set(32, 0);
+  door.scale.set(0.2, 0.2);
+  app.stage.addChild(door);
+
+  //Make the blobs
+  let numberOfBlobs = 12,
+      spacing = 50,
+      xOffset = 0;
+
+  //Make as many blobs as there are `numberOfBlobs`
+  for (let i = 0; i < numberOfBlobs; i++) {
+
+    //Make a blob
+    let blob = new Sprite(id["blob.png"]);
+
+    //Space each blob horizontally according to the `spacing` value.
+    //`xOffset` determines the point from the left of the screen
+    //at which the first blob should be added.
+    let x = spacing * i + xOffset;
+
+    //Give the blob a random y position
+    //(`randomInt` is a custom function - see below)
+    let y = randomInt(0, app.stage.height - blob.height);
+
+    //Set the blob's position
+    blob.x = x;
+    blob.y = y+randomInt(0, 512);
+
+    blob.scale.set(0.1, 0.1);
+
+    //Add the blob sprite to the stage
+    app.stage.addChild(blob);
+  }
+
+  gameLoop();
+}
+
+//The `randomInt` helper function
+function randomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function gameLoop(delta){
+  explorer.x += 1;
+}
+
+function gameLoop() {
+  //Call this `gameLoop` function on the next screen refresh
+  //(which happens 60 times per second)
+  requestAnimationFrame(gameLoop);
+
+  explorer.x += 1;
+}
+

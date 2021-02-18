@@ -26,9 +26,15 @@ loader
 
 //Define variables that might be used in more 
 //than one function
-let dungeon, explorer, treasure, door, id;
+let dungeon, explorer, treasure, door, id, state;
 
 function setup() {
+
+    //Capture the keyboard arrow keys
+  let left = keyboard("ArrowLeft"),
+      up = keyboard("ArrowUp"),
+      right = keyboard("ArrowRight"),
+      down = keyboard("ArrowDown");
 
   //There are 3 ways to make sprites from textures atlas frames
 
@@ -49,6 +55,56 @@ function setup() {
   //Center the explorer vertically
   explorer.y = app.stage.height / 2 - explorer.height / 2;
   app.stage.addChild(explorer);
+
+  //Left arrow key `press` method
+  left.press = () => {
+    //Change the cat's velocity when the key is pressed
+    explorer.vx = -5;
+    explorer.vy = 0;
+  };
+  
+  //Left arrow key `release` method
+  left.release = () => {
+    //If the left arrow has been released, and the right arrow isn't down,
+    //and the cat isn't moving vertically:
+    //Stop the cat
+    if (!right.isDown && explorer.vy === 0) {
+      explorer.vx = 0;
+    }
+  };
+
+  //Up
+  up.press = () => {
+    explorer.vy = -5;
+    explorer.vx = 0;
+  };
+  up.release = () => {
+    if (!down.isDown && explorer.vx === 0) {
+      explorer.vy = 0;
+    }
+  };
+
+  //Right
+  right.press = () => {
+    explorer.vx = 5;
+    explorer.vy = 0;
+  };
+  right.release = () => {
+    if (!left.isDown && explorer.vy === 0) {
+      explorer.vx = 0;
+    }
+  };
+
+  //Down
+  down.press = () => {
+    explorer.vy = 5;
+    explorer.vx = 0;
+  };
+  down.release = () => {
+    if (!up.isDown && explorer.vx === 0) {
+      explorer.vy = 0;
+    }
+  };
 
   //3. Create an optional alias called `id` for all the texture atlas 
   //frame id textures.
@@ -100,7 +156,24 @@ function setup() {
     app.stage.addChild(blob);
   }
 
-  gameLoop();
+  //Set the game state
+  state = play;
+ 
+  //Start the game loop 
+  app.ticker.add(delta => gameLoop(delta));
+}
+
+function gameLoop(delta){
+
+  //Update the current game state:
+  state(delta);
+}
+
+function play(delta) {
+
+  //Use the cat's velocity to make it move
+  explorer.x += explorer.vx;
+  explorer.y += explorer.vy
 }
 
 //The `randomInt` helper function
@@ -108,12 +181,49 @@ function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function gameLoop(){
-  requestAnimationFrame(gameLoop);
+function keyboard(value) {
+  let key = {};
+  key.value = value;
+  key.isDown = false;
+  key.isUp = true;
+  key.press = undefined;
+  key.release = undefined;
+  //The `downHandler`
+  key.downHandler = event => {
+    if (event.key === key.value) {
+      if (key.isUp && key.press) key.press();
+      key.isDown = true;
+      key.isUp = false;
+      event.preventDefault();
+    }
+  };
 
-  explorer.vx = 0.1;
-  explorer.vy = 0.1;
+  //The `upHandler`
+  key.upHandler = event => {
+    if (event.key === key.value) {
+      if (key.isDown && key.release) key.release();
+      key.isDown = false;
+      key.isUp = true;
+      event.preventDefault();
+    }
+  };
 
-  explorer.x += explorer.vx;
-  explorer.y += explorer.vy;
+  //Attach event listeners
+  const downListener = key.downHandler.bind(key);
+  const upListener = key.upHandler.bind(key);
+  
+  window.addEventListener(
+    "keydown", downListener, false
+  );
+  window.addEventListener(
+    "keyup", upListener, false
+  );
+  
+  // Detach event listeners
+  key.unsubscribe = () => {
+    window.removeEventListener("keydown", downListener);
+    window.removeEventListener("keyup", upListener);
+  };
+  
+  return key;
 }

@@ -24,6 +24,8 @@ loader
 		let sprite = new Sprite( id["uia_logo_w.png"] );
 
 		app.stage.addChild( sprite );
+
+		console.log('All files loaded');
     });
 
 // Throughout the process multiple signals can be dispatched.
@@ -32,7 +34,6 @@ loader.onError.add(() => {console.log("onError");}); // Called when a resource f
 loader.onLoad.add(() => {console.log("onLoad");}); // Called when a resource successfully loads.
 loader.onProgress.add((loader, resource) => {
 	console.log("onProgress: " + resource.url); 
-	console.log("loading: " + resource.url); 
 	console.log("progress: " + loader.progress + "%"); 
 }); // Called when a resource finishes loading (success or fail).
 loader.onComplete.add(() => {console.log("onComplete");}); // Called when all resources have finished loading.

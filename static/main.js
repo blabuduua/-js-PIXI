@@ -30,5 +30,9 @@ loader
 loader.onStart.add(() => {console.log("onStart");}); // Called when a resource starts loading.
 loader.onError.add(() => {console.log("onError");}); // Called when a resource fails to load.
 loader.onLoad.add(() => {console.log("onLoad");}); // Called when a resource successfully loads.
-loader.onProgress.add(() => {console.log("onProgress");}); // Called when a resource finishes loading (success or fail).
+loader.onProgress.add((loader, resource) => {
+	console.log("onProgress: " + resource.url); 
+	console.log("loading: " + resource.url); 
+	console.log("progress: " + loader.progress + "%"); 
+}); // Called when a resource finishes loading (success or fail).
 loader.onComplete.add(() => {console.log("onComplete");}); // Called when all resources have finished loading.

@@ -42,6 +42,8 @@ function setup() {
     resources.grif.textures["explorer.png"]
   );
   explorer.x = 68;
+  explorer.vx = 0;
+  explorer.vy = 0;
   explorer.scale.set(0.1, 0.1);
 
   //Center the explorer vertically
@@ -98,7 +100,7 @@ function setup() {
     app.stage.addChild(blob);
   }
 
-  app.ticker.add(delta => gameLoop(delta));
+  gameLoop();
 }
 
 //The `randomInt` helper function
@@ -106,6 +108,12 @@ function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function gameLoop(delta){
-  explorer.x += 1 + delta;
+function gameLoop(){
+  requestAnimationFrame(gameLoop);
+
+  explorer.vx = 0.1;
+  explorer.vy = 0.1;
+
+  explorer.x += explorer.vx;
+  explorer.y += explorer.vy;
 }
